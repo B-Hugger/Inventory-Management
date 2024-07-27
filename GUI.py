@@ -73,6 +73,7 @@ table_frame = tk.Frame(master = window,width = 300, height = 500)
 table = ttk.Treeview(master = table_frame, columns = tuple(dataframe.columns), show = "headings")
 for column in tuple(dataframe.columns):
     table.heading(column,text = column)
+    table.column(column, anchor = tk.CENTER)
 for rows in dataframe.itertuples(index = None, name = None):
     table.insert(parent = '', index = tk.END,values = tuple(rows))
 table_frame.pack(anchor = tk.W, fill = "both")
