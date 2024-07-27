@@ -43,11 +43,6 @@ window.configure(menu = menu)
 
 
 
-
-
-
-
-
 #Frame
 filter_frame = tk.Frame(window,width=300,height=400, borderwidth= 10, relief="groove")
 filter_frame.pack_propagate(False)
@@ -56,14 +51,14 @@ filter_frame.pack(side = 'top',fill='both')
 
 # Master setting
     ##Label for the dropbox for finding keywords
-find_label = tk.Label(filter_frame, text="Find", font=("Helvetica", 18))
+find_label = tk.Label(filter_frame, text="Find:", font=("Helvetica", 14))
 find_label.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 
 find_label_Manufacture = tk.Label(filter_frame, text="Manufacture", font=("Helvetica", 12))
 find_label_Manufacture.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 find_label_WidthSize = tk.Label(filter_frame, text="WidthSize", font=("Helvetica", 12))
 find_label_WidthSize.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-find_label_OpCom = tk.Label(filter_frame, text="Operation Comparsion", font=("Helvetica", 12))
+find_label_OpCom = tk.Label(filter_frame, text="", font=("Helvetica", 12)) #Operation Comparsion
 find_label_OpCom.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 find_label_IDNum = tk.Label(filter_frame, text="ID Number", font=("Helvetica", 12))
 find_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
@@ -84,13 +79,15 @@ choices_Manufacture = ['N/A', 'Shanghai','Fujikura ','SuperPower']
 branch1_dropdown = ttk.Combobox(filter_frame, values=choices_Manufacture)
 branch1_dropdown.pack(anchor=tk.W,padx=10)
 
-choices_OpCom = ['N/A', '<','>','=','</=','>/=']
-branch3_dropdown = ttk.Combobox(filter_frame, values=choices_OpCom)
-branch3_dropdown.pack(anchor=tk.NE,padx=10)
+choices_OpCom = ['', '<','>','=','</=','>/=']
+branch2_dropdown = ttk.Combobox(filter_frame, values=choices_OpCom,width=4)
+branch2_dropdown.pack()
 
 
-branch2_dropdown = ttk.Entry(filter_frame)
-branch2_dropdown.pack(anchor=tk.NW,padx=10)
+branch3_dropdown = ttk.Entry(filter_frame)
+branch3_dropdown.pack(anchor=tk.NW, padx=10)
+
+
 
 
 branch4_dropdown = ttk.Entry(filter_frame)
@@ -109,7 +106,7 @@ filter_frame.columnconfigure(0, weight = 1)
 filter_frame.columnconfigure(1, weight = 2)
 filter_frame.columnconfigure(2, weight = 1)
 filter_frame.columnconfigure(3, weight = 1)
-filter_frame.columnconfigure(4, weight = 2)
+filter_frame.columnconfigure(4, weight = 3)
 filter_frame.columnconfigure(5, weight =2)
     #Rows
 filter_frame.rowconfigure(0, weight = 1)
@@ -123,19 +120,18 @@ find_label.grid(row = 0, column = 0)
 
     ### Labels for the dropdown widgets placements
 find_label_Manufacture.grid(row = 1, column = 1)
-find_label_WidthSize.grid(row = 1, column = 2)
-find_label_OpCom.grid(row = 1, column = 3)
+find_label_OpCom.grid(row = 1, column = 2)
+find_label_WidthSize.grid(row = 1, column = 3)
 find_label_IDNum.grid(row = 1, column = 4)
 
     ### Dropdown widgets placements
 branch1_dropdown.grid(row = 2, column = 1)
-branch2_dropdown.grid(row = 2, column = 2)
+branch2_dropdown.grid(row = 2, column = 2, sticky = 'e')
 branch3_dropdown.grid(row = 2, column = 3)
 branch4_dropdown.grid(row = 2, column = 4)
 
     ### Filter button
-filter_button.grid(row = 2, column = 5)
-
+filter_button.grid(row = 2, column = 5, padx = 5)
 
 
 
