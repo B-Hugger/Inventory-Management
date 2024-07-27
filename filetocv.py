@@ -18,8 +18,7 @@ def getdir(dir):
     return fileNameList
 
 
-list = getdir(folderPath)
-print(list)
+
 
 #2d array to csv file
 def ArrayToCSV(array):
@@ -27,8 +26,6 @@ def ArrayToCSV(array):
         csv_rw = csv.writer(csv_file)
         rows = array
         csv_rw.writerows(array)
-#Test output
-ArrayToCSV(list)
 
 
 

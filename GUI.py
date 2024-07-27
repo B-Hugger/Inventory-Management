@@ -1,8 +1,17 @@
+
 import tkinter as tk
 from tkinter import ttk
-
+import pandas as pd
 #import openpyxl
+def refresh(table):
+    for row in table.get_children():
+        table.delete(row)
 
+def filter(dataframe,table,column = None, filter = None):
+    rows = dataframe[dataframe[column] == filter]
+    refresh(table)
+    for rows in rows.itertuples(index =None, name = None):
+        table.insert(parent = '', index = tk.END, values = tuple(rows))
 
 # Create the main application window
 window = tk.Tk()
@@ -58,6 +67,16 @@ find_label_OpCom = tk.Label(filter_frame, text="Operation Comparsion", font=("He
 find_label_OpCom.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 find_label_IDNum = tk.Label(filter_frame, text="ID Number", font=("Helvetica", 12))
 find_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+#TreeView
+dataframe = pd.read_csv("inventory.csv")
+table_frame = tk.Frame(master = window,width = 300, height = 500)
+table = ttk.Treeview(master = table_frame, columns = tuple(dataframe.columns), show = "headings")
+for column in tuple(dataframe.columns):
+    table.heading(column,text = column)
+for rows in dataframe.itertuples(index = None, name = None):
+    table.insert(parent = '', index = tk.END,values = tuple(rows))
+table_frame.pack(anchor = tk.W, fill = "both")
+table.pack(anchor = tk.W, fill = "both")
 
     #Dropdown Widgets
 choices_Manufacture = ['N/A', 'Shanghai','Fujikura ','SuperPower']
@@ -133,5 +152,7 @@ edit_label.pack()
 
 
 #run
-
 window.mainloop()
+
+
+
