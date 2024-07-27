@@ -115,7 +115,7 @@ filter_frame.rowconfigure(2, weight = 1)
 
 #Placement for the widgets in the grid
 ##Labels
-    ### The 'Find' label
+    ### The 'Find:' label
 find_label.grid(row = 0, column = 0)
 
     ### Labels for the dropdown widgets placements
