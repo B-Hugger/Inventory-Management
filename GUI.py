@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import pandas as pd
 #import openpyxl
+
 def refresh(table):
     for row in table.get_children():
         table.delete(row)
