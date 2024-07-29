@@ -7,10 +7,18 @@ def refresh(table):
     for row in table.get_children():
         table.delete(row)
 
-def filter(dataframe,table,column = None, filter = None):
-    rows = dataframe[dataframe[column] == filter]
+def filter(dataframe,table,columns = None, filter = None):
+    newdataframe = dataframe
+    for index, i in enumerate(filter):
+        if i != '':
+            try:
+                newdataframe = newdataframe.where(newdataframe[dataframe.columns[index]] == i)
+                newdataframe = newdataframe.dropna()
+
+            except KeyError:
+                print("No data found index: " + str(index) + ", filter: " + i)
     refresh(table)
-    for rows in rows.itertuples(index =None, name = None):
+    for rows in newdataframe.itertuples(index = False):
         table.insert(parent = '', index = tk.END, values = tuple(rows))
 
 # Create the main application window
@@ -67,15 +75,16 @@ dataframe = pd.read_csv("inventory.csv")
 table_frame = tk.Frame(master = window,width = 300, height = 500)
 table = ttk.Treeview(master = table_frame, columns = tuple(dataframe.columns), show = "headings")
 for column in tuple(dataframe.columns):
-    table.heading(column,text = column)
+    table.heading(column, text = column)
     table.column(column, anchor = tk.CENTER)
-for rows in dataframe.itertuples(index = None, name = None):
+for rows in dataframe.itertuples(index = False, name = None):
     table.insert(parent = '', index = tk.END,values = tuple(rows))
 table_frame.pack(anchor = tk.W, fill = "both")
 table.pack(anchor = tk.W, fill = "both")
 
+
     #Dropdown Widgets
-choices_Manufacture = ['N/A', 'Shanghai','Fujikura ','SuperPower']
+choices_Manufacture = ['', 'Shanghai','Fujikura ','SuperPower']
 branch1_dropdown = ttk.Combobox(filter_frame, values=choices_Manufacture)
 branch1_dropdown.pack(anchor=tk.W,padx=10)
 
@@ -92,14 +101,14 @@ branch3_dropdown.pack(anchor=tk.NW, padx=10)
 
 branch4_dropdown = ttk.Entry(filter_frame)
 branch4_dropdown.pack(anchor=tk.N,padx=10)
+#filter selection
+def getValue(filter):
+    return filter.get()
+
 
     #Button Widget
-filter_button = ttk.Button(filter_frame, text = 'Filter')
+filter_button = ttk.Button(filter_frame, text = 'Filter', command = lambda: filter(dataframe,table,dataframe.columns,[branch1_dropdown.get(),branch3_dropdown.get(),branch4_dropdown.get()]))
 filter_button.pack()
-
-
-
-
 # Grid
     #Colums
 filter_frame.columnconfigure(0, weight = 1)
