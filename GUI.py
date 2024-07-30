@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
-#import openpyxl
+
 
 def refresh(table):
     for row in table.get_children():
@@ -53,7 +53,7 @@ window.configure(menu = menu)
 
 
 #Frame
-filter_frame = tk.Frame(window,width=300,height=400, borderwidth= 10, relief="groove")
+filter_frame = tk.Frame(window,width=300,height=400, borderwidth= 10)
 filter_frame.pack_propagate(False)
 filter_frame.pack(side = 'top',fill='both')
 
@@ -62,10 +62,8 @@ filter_frame.pack(side = 'top',fill='both')
     ##Label for the dropbox for finding keywords
 filter_label_Manufacture = tk.Label(filter_frame, text="Manufacture", font=("Helvetica", 12))
 filter_label_Manufacture.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-filter_label_WidthSize = tk.Label(filter_frame, text="Width Size (mm)", font=("Helvetica", 12))
+filter_label_WidthSize = tk.Label(filter_frame, text="Width Size", font=("Helvetica", 12))
 filter_label_WidthSize.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-filter_label_OpCom = tk.Label(filter_frame, text="", font=("Helvetica", 12)) #Operation Comparsion
-filter_label_OpCom.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 filter_label_IDNum = tk.Label(filter_frame, text="ID #", font=("Helvetica", 12))
 filter_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 
@@ -84,19 +82,19 @@ table.pack(anchor = tk.W, fill = "both")
 
     #Dropdown Widgets
 choices_Manufacture = ['', 'Shanghai','Fujikura ','SuperPower']
-branch1_dropdown = ttk.Combobox(filter_frame, values=choices_Manufacture, width = 10)
-branch1_dropdown.pack(anchor=tk.W,padx=10)
+branch1_dropdown = ttk.Combobox(filter_frame, values=choices_Manufacture, width = 11)
+branch1_dropdown.pack(anchor=tk.W, padx = 0)
 
 choices_OpCom = ['', '<','>','=','\u2265','\u2264']
-branch2_dropdown = ttk.Combobox(filter_frame, values=choices_OpCom,width=1)
-branch2_dropdown.pack()
+branch2_dropdown = ttk.Combobox(filter_frame, values=choices_OpCom,width = 1)
+branch2_dropdown.pack(anchor=tk.W)
 
 
-branch3_dropdown = ttk.Entry(filter_frame,width=6)
-branch3_dropdown.pack(anchor=tk.NW, padx=10)
+branch3_dropdown = ttk.Entry(filter_frame, width = 3)
+branch3_dropdown.pack(anchor=tk.E)
 
-branch4_dropdown = ttk.Entry(filter_frame,width = 10)
-branch4_dropdown.pack(anchor=tk.N,padx=10)
+branch4_dropdown = ttk.Entry(filter_frame, width = 10)
+branch4_dropdown.pack(anchor=tk.W)
 
 
 #filter selection
@@ -111,32 +109,30 @@ filter_button.pack()
 # Grid
     #Colums
 filter_frame.columnconfigure(0, weight = 1)
-filter_frame.columnconfigure(1, weight = 2)
+filter_frame.columnconfigure(1, weight = 1)
 filter_frame.columnconfigure(2, weight = 1)
 filter_frame.columnconfigure(3, weight = 1)
-filter_frame.columnconfigure(4, weight = 1, minsize=10)
 
     #Rows
 filter_frame.rowconfigure(0, weight = 1)
-filter_frame.rowconfigure(1, weight = 1)
+
 
 #Placement for the widgets in the grid
 ##Labels
-
     ### Labels for the dropdown widgets placements
-filter_label_Manufacture.grid(row = 0, column = 0)
-filter_label_OpCom.grid(row = 0, column = 1)
-filter_label_WidthSize.grid(row = 0, column = 2)
-filter_label_IDNum.grid(row = 0, column = 4)
+filter_label_Manufacture.grid(row = 0, column = 0, sticky = 'W')
+filter_label_WidthSize.grid(row = 0, column = 1, sticky = 'W', padx =40)
+filter_label_IDNum.grid(row = 0, column = 2, sticky = 'W')
+
 
     ### Dropdown widgets placements
-branch1_dropdown.grid(row = 0, column = 1)
-branch2_dropdown.grid(row = 0, column = 2, sticky = 'e')
-branch3_dropdown.grid(row = 0, column = 3, sticky = 'e')
-branch4_dropdown.grid(row = 0, column = 4, sticky = 'e')
+branch1_dropdown.grid(row = 0, column = 0, sticky = 'e')
+branch2_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 90)
+branch3_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 120)
+branch4_dropdown.grid(row = 0, column = 2, sticky = 'w')
 
     ### Filter button
-filter_button.grid(row = 0, column = 5)
+filter_button.grid(row = 0, column = 4)
 
 
 
