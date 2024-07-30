@@ -108,28 +108,30 @@ filter_button.pack()
 
 # Grid
     #Colums
-filter_frame.columnconfigure(0, weight = 1)
-filter_frame.columnconfigure(1, weight = 1)
-filter_frame.columnconfigure(2, weight = 1)
+filter_frame.columnconfigure(0, weight = 1, minsize = 180)
+filter_frame.columnconfigure(1, weight = 1, minsize = 100)
+filter_frame.columnconfigure(2, weight = 1, minsize = 150)
 filter_frame.columnconfigure(3, weight = 1)
 
     #Rows
 filter_frame.rowconfigure(0, weight = 1)
 
 
+
 #Placement for the widgets in the grid
 ##Labels
     ### Labels for the dropdown widgets placements
 filter_label_Manufacture.grid(row = 0, column = 0, sticky = 'W')
-filter_label_WidthSize.grid(row = 0, column = 1, sticky = 'W', padx =40)
-filter_label_IDNum.grid(row = 0, column = 2, sticky = 'W')
+filter_label_WidthSize.grid(row = 0, column = 1, sticky = 'W', padx = 80)
+filter_label_IDNum.grid(row = 0, column = 2, sticky = 'W', padx = 20)
+
 
 
     ### Dropdown widgets placements
 branch1_dropdown.grid(row = 0, column = 0, sticky = 'e')
-branch2_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 90)
-branch3_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 120)
-branch4_dropdown.grid(row = 0, column = 2, sticky = 'w')
+branch2_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 130)
+branch3_dropdown.grid(row = 0, column = 1, sticky = 'e', padx = 160)
+branch4_dropdown.grid(row = 0, column = 2, sticky = 'w', padx = 55)
 
     ### Filter button
 filter_button.grid(row = 0, column = 4)
