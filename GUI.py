@@ -27,7 +27,6 @@ window = tk.Tk()
 window.title("Inventory")  # Add a title to the window
 window.geometry("800x500")  # Set the window size
 
-
 #Menu
 
 menu = tk.Menu(window)
@@ -95,11 +94,6 @@ branch3_dropdown.pack(anchor=tk.E)
 
 branch4_dropdown = ttk.Entry(filter_frame, width = 10)
 branch4_dropdown.pack(anchor=tk.W)
-
-
-#filter selection
-def getValue(filter):
-    return filter.get()
 
 
     #Button Widget
