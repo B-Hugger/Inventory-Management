@@ -86,7 +86,7 @@ class FilterFrame(tk.Frame):
         self.branch1_dropdown.grid(row=0, column=0, sticky='e')
         self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=90)
         self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=120)
-        self.branch4_dropdown.grid(row=0, column=2, sticky='w')
+        self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=40)
         #filter_button.grid(row=0, column=4)
 
     @classmethod
