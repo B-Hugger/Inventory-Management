@@ -27,7 +27,6 @@ window = tk.Tk()
 window.title("Inventory")  # Add a title to the window
 window.geometry("800x500")  # Set the window size
 
-
 #Menu
 
 menu = tk.Menu(window)
@@ -68,7 +67,7 @@ filter_label_IDNum = tk.Label(filter_frame, text="ID #", font=("Helvetica", 12))
 filter_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
 
 #TreeView
-dataframe = pd.read_csv("inventory.csv")
+dataframe = pd.read_csv("Inventory.csv")
 table_frame = tk.Frame(master = window,width = 300, height = 500)
 table = ttk.Treeview(master = table_frame, columns = tuple(dataframe.columns), show = "headings")
 for column in tuple(dataframe.columns):
@@ -76,8 +75,8 @@ for column in tuple(dataframe.columns):
     table.column(column, anchor = tk.CENTER)
 for rows in dataframe.itertuples(index = False, name = None):
     table.insert(parent = '', index = tk.END,values = tuple(rows))
-table_frame.pack(anchor = tk.W, fill = "both")
-table.pack(anchor = tk.W, fill = "both")
+table_frame.pack(anchor = tk.W, expand = True, fill = "both")
+table.pack(anchor = tk.W, fill = "both", expand = True)
 
 
     #Dropdown Widgets
@@ -95,11 +94,6 @@ branch3_dropdown.pack(anchor=tk.E)
 
 branch4_dropdown = ttk.Entry(filter_frame, width = 10)
 branch4_dropdown.pack(anchor=tk.W)
-
-
-#filter selection
-def getValue(filter):
-    return filter.get()
 
 
     #Button Widget
@@ -138,15 +132,7 @@ filter_button.grid(row = 0, column = 4)
 
 
 
-"""
-#Label for the dropbox for the adding infromation
-add_label = tk.Label(window, text="Add:", font=("Helvetica",18),anchor=tk.W)
-add_label.pack()
 
-#Label for the dropbox for deleting and editing
-edit_label = tk.Label(window, text="Edit:", font=("Helvetica",18))
-edit_label.pack()
-"""
 
 
 
