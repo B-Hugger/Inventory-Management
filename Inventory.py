@@ -10,8 +10,7 @@ class Application(tk.Tk):
         self.title("Inventory Management")
         self.geometry(f'{width}x{height}')
         Menu(self)
-        FilterFrame(self)
-        TreeView(self, pd.read_csv("Inventory.csv"))
+        FilterFrame(self, "Inventory.csv")
         self.mainloop()
 
 
@@ -23,7 +22,7 @@ class Menu(tk.Menu):
         settings_menu.add_command(label="Layout")
         settings_menu.add_command(label="Change Database")
         self.add_cascade(label="Settings", menu=settings_menu)
-        ##Help Menu#
+        #Help Menu#
         help_menu = tk.Menu(self, tearoff=False)
         self.add_cascade(label="Help", menu=help_menu)
         help_menu.add_command(label="Controls")
@@ -33,14 +32,15 @@ class Menu(tk.Menu):
 
 
 class FilterFrame(tk.Frame):
-
-    def __init__(self, parent):
+    def __init__(self, parent, dataframe):
         super().__init__(parent)
         # Frame
         self.configure(width = 300, height = 400, borderwidth = 10)
+        self.dataframe = pd.read_csv(dataframe)
         self.pack_propagate(False)
         self.pack(side='top', fill='both')
         self.createDropdown()
+        self.create_table()
         #Dropdown Widgets
     def createDropdown(self):
         # Label for the dropbox for finding keywords
@@ -50,7 +50,7 @@ class FilterFrame(tk.Frame):
         filter_label_WidthSize.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
         filter_label_IDNum = tk.Label(self, text="ID #", font=("Helvetica", 12))
         filter_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        choices_Manufacture = ['', 'Shanghai', 'Fujikura ', 'SuperPower']
+        choices_Manufacture = ['', 'Shanghai', 'Fujikura', 'SuperPower']
         self.branch1_dropdown = ttk.Combobox(self, values=choices_Manufacture, width=11)
         self.branch1_dropdown.pack(anchor=tk.W, padx=0)
 
@@ -65,9 +65,8 @@ class FilterFrame(tk.Frame):
         self.branch4_dropdown.pack(anchor=tk.W)
 
         #Button Widget
-        # filter_function = TreeView(parent=None, dataframe = pd.read_csv("Inventory.csv"))
-        # filter_button = ttk.Button(self, text='Filter', command=lambda: filter_function.filter())
-        # filter_button.pack()
+        filter_button = ttk.Button(self, text='Filter', command=lambda: self.filter())
+        filter_button.pack()
 
         #Grid
         #Colums
@@ -75,53 +74,36 @@ class FilterFrame(tk.Frame):
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
-         #Rows
+        #Rows
         self.rowconfigure(0, weight=1)
         #Placement for the widgets in the grid
-        filter_label_Manufacture.grid(row=0, column=0, sticky='W')
+        filter_label_Manufacture.grid(row=0, column=0, sticky='w')
         filter_label_WidthSize.grid(row=0, column=1, sticky='W', padx=40)
         filter_label_IDNum.grid(row=0, column=2, sticky='W')
-
         #Dropdown widgets placements
         self.branch1_dropdown.grid(row=0, column=0, sticky='e')
-        self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=90)
-        self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=120)
-        self.branch4_dropdown.grid(row=0, column=2, sticky='w')
-        #filter_button.grid(row=0, column=4)
-
-    @classmethod
-    def returnfilters(cls):
-        instance = FilterFrame(parent=None)
-        return [instance.branch1_dropdown.get(), instance.branch3_dropdown.get(), instance.branch4_dropdown.get()]
-
-
-class tableFrame(tk.Frame):
-    def __init__(self, parent, width, height, dataframe):
-        super().__init__(parent)
-        self.configure(width = width, height = height)
-        self.pack_propagate(False)
-        self.pack(anchor=tk.W, expand=True, fill="both")
-        TreeView(self,dataframe = pd.read_csv(dataframe))
-
-class TreeView(ttk.Treeview):
-    def __init__(self, parent, dataframe):
-        super().__init__(parent)
-        self.dataframe = pd.DataFrame(dataframe)
-        self.configure(columns = tuple(dataframe.columns), show = "headings")
-        for column in tuple(dataframe.columns):
-            self.heading(column, text=column)
-            self.column(column, anchor=tk.CENTER)
-        for rows in dataframe.itertuples(index=False, name=None):
-            self.insert(parent='', index=tk.END, values=tuple(rows))
-        self.pack(anchor=tk.W, fill="both", expand=True)
+        self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=130)
+        self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=160)
+        self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=55)
+        filter_button.grid(row=0, column=4)
 
     def refresh(self, table):
         for row in table.get_children():
             table.delete(row)
+    def create_table(self):
+        self.table = ttk.Treeview(master = self)
+        self.table.configure(columns=tuple(self.dataframe.columns), show="headings")
+        for column in tuple(self.dataframe.columns):
+            self.table.heading(column, text=column)
+            self.table.column(column, anchor=tk.CENTER)
+        for rows in self.dataframe.itertuples(index=False, name=None):
+            self.table.insert(parent='', index=tk.END, values=tuple(rows))
+        self.table.grid(row = 1, column = 0,pady = 20,ipady = 80, columnspan = 5, sticky = "swse",)
 
     def filter(self):
         newdataframe = self.dataframe
-        columns = FilterFrame.returnfilters()
+        columns = self.returnfilters()
+        print(columns)
         for index, i in enumerate(columns):
             if i != '':
                 try:
@@ -129,9 +111,11 @@ class TreeView(ttk.Treeview):
                     newdataframe = newdataframe.dropna()
                 except KeyError:
                     print("No data found index: " + str(index) + ", filter: " + i)
-        self.refresh(self)
+        self.refresh(self.table)
         for rows in newdataframe.itertuples(index=False):
-            self.insert(parent='', index=tk.END, values=tuple(rows))
+            self.table.insert(parent='', index=tk.END, values=tuple(rows))
+    def returnfilters(self):
+        return [self.branch1_dropdown.get(), self.branch3_dropdown.get(), self.branch4_dropdown.get()]
 
 
 Application("800", "500")
