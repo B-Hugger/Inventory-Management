@@ -43,49 +43,59 @@ class FilterFrame(tk.Frame):
         self.create_table()
         #Dropdown Widgets
     def createDropdown(self):
-        # Label for the dropbox for finding keywords
-        filter_label_Manufacture = tk.Label(self, text="Manufacture", font=("Helvetica", 12))
-        filter_label_Manufacture.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        filter_label_WidthSize = tk.Label(self, text="Width Size", font=("Helvetica", 12))
-        filter_label_WidthSize.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        filter_label_IDNum = tk.Label(self, text="ID #", font=("Helvetica", 12))
-        filter_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        choices_Manufacture = ['', 'Shanghai', 'Fujikura', 'SuperPower']
-        self.branch1_dropdown = ttk.Combobox(self, values=choices_Manufacture, width=11)
-        self.branch1_dropdown.pack(anchor=tk.W, padx=0)
+        manufacture_frame = tk.Frame(master=self)
+        width_frame = tk.Frame(master=self)
+        id_frame = tk.Frame(master=self)
 
-        choices_OpCom = ['', '<', '>', '=', '\u2265', '\u2264']
-        self.branch2_dropdown = ttk.Combobox(self, values=choices_OpCom, width=1)
-        self.branch2_dropdown.pack(anchor=tk.W)
-
-        self.branch3_dropdown = ttk.Entry(self, width=3)
-        self.branch3_dropdown.pack(anchor=tk.E)
-
-        self.branch4_dropdown = ttk.Entry(self, width=10)
-        self.branch4_dropdown.pack(anchor=tk.W)
-
-        #Button Widget
-        filter_button = ttk.Button(self, text='Filter', command=lambda: self.filter())
-        filter_button.pack()
-
-        #Grid
-        #Colums
+        # Grid
+        # Colums
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
-        #Rows
+        # Rows
         self.rowconfigure(0, weight=1)
-        #Placement for the widgets in the grid
-        filter_label_Manufacture.grid(row=0, column=0, sticky='w')
-        filter_label_WidthSize.grid(row=0, column=1, sticky='W', padx=40)
-        filter_label_IDNum.grid(row=0, column=2, sticky='W')
-        #Dropdown widgets placements
-        self.branch1_dropdown.grid(row=0, column=0, sticky='e')
-        self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=130)
-        self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=160)
-        self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=55)
-        filter_button.grid(row=0, column=4)
+
+        manufacture_frame.grid(row=0, column=0)
+        width_frame.grid(row=0, column=1)
+        id_frame.grid(row=0, column=2)
+
+        # Label for the dropbox for finding keywords
+        filter_label_manufacture = tk.Label(manufacture_frame, text="Manufacture", font=("Helvetica", 12))
+        filter_label_manufacture.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        filter_label_widthsize = tk.Label(width_frame, text="Width Size", font=("Helvetica", 12))
+        filter_label_widthsize.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        filter_label_IDNum = tk.Label(id_frame, text="ID #", font=("Helvetica", 12))
+        filter_label_IDNum.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        choices_manufacture = ['', 'Shanghai', 'Fujikura', 'SuperPower']
+        self.branch1_dropdown = ttk.Combobox(manufacture_frame, values=choices_manufacture, width=11)
+        self.branch1_dropdown.pack(anchor=tk.W, padx=0)
+
+        choices_OpCom = ['', '<', '>', '=', '\u2265', '\u2264']
+        self.branch2_dropdown = ttk.Combobox(width_frame, values=choices_OpCom, width=1)
+        self.branch2_dropdown.pack(side="left", anchor=tk.W)
+
+        self.branch3_dropdown = ttk.Entry(width_frame, width=3)
+        self.branch3_dropdown.pack(side="left", anchor=tk.E)
+
+        self.branch4_dropdown = ttk.Entry(id_frame, width=10)
+        self.branch4_dropdown.pack(side="left", anchor=tk.W)
+
+        # Button Widget
+        filter_button = ttk.Button(self, text='Filter', command=lambda: self.filter())
+        filter_button.grid(row=0, column=3)
+
+        # #Placement for the widgets in the grid
+        #
+        # filter_label_Manufacture.grid(row=0, column=0, sticky='e')
+        # filter_label_WidthSize.grid(row=0, column=1, sticky='W')
+        # filter_label_IDNum.grid(row=0, column=2, sticky='W')
+        # #Dropdown widgets placements
+        # self.branch1_dropdown.grid(row=0, column=0, sticky='e')
+        # self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=130)
+        # self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=160)
+        # self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=55)
+        # filter_button.grid(row=0, column=4)
 
     def refresh(self, table):
         for row in table.get_children():
