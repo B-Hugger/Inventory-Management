@@ -22,7 +22,7 @@ class Menu(tk.Menu):
         settings_menu.add_command(label="Layout")
         settings_menu.add_command(label="Change Database")
         self.add_cascade(label="Settings", menu=settings_menu)
-        #Help Menu#
+        #Help Menu
         help_menu = tk.Menu(self, tearoff=False)
         self.add_cascade(label="Help", menu=help_menu)
         help_menu.add_command(label="Controls")
@@ -43,82 +43,49 @@ class FilterFrame(tk.Frame):
         self.create_table()
         #Dropdown Widgets
     def createDropdown(self):
-        # Label for the dropbox for finding keywords
-        filter_label_Manufacture = tk.Label(self, text="Manufacture", font=("Helvetica", 12))
-        filter_label_Manufacture.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        filter_label_WidthSize = tk.Label(self, text="Width Size", font=("Helvetica", 12))
-        filter_label_WidthSize.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        filter_label_IDNum = tk.Label(self, text="ID #", font=("Helvetica", 12))
-        filter_label_IDNum.pack(anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
-        choices_Manufacture = ['', 'Shanghai', 'Fujikura', 'SuperPower']
-        self.branch1_dropdown = ttk.Combobox(self, values=choices_Manufacture, width=11)
-        self.branch1_dropdown.pack(anchor=tk.W, padx=0)
+        manufacture_frame = tk.Frame(master=self)
+        width_frame = tk.Frame(master=self)
+        id_frame = tk.Frame(master=self)
 
-        choices_OpCom = ['', '<', '>', '=', '\u2265', '\u2264']
-        self.branch2_dropdown = ttk.Combobox(self, values=choices_OpCom, width=1)
-        self.branch2_dropdown.pack(anchor=tk.W)
-
-        self.branch3_dropdown = ttk.Entry(self, width=3)
-        self.branch3_dropdown.pack(anchor=tk.E)
-
-        self.branch4_dropdown = ttk.Entry(self, width=10)
-        self.branch4_dropdown.pack(anchor=tk.W)
-
-        #Button Widget
-        filter_button = ttk.Button(self, text='Filter', command=lambda: self.filter())
-        filter_button.pack()
-
-        #Grid
-        #Colums
+        # Grid
+        # Colums
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
-        #Rows
+        # Rows
         self.rowconfigure(0, weight=1)
-        #Placement for the widgets in the grid
-        filter_label_Manufacture.grid(row=0, column=0, sticky='w')
-        filter_label_WidthSize.grid(row=0, column=1, sticky='W', padx=40)
-        filter_label_IDNum.grid(row=0, column=2, sticky='W')
-        #Dropdown widgets placements
-        self.branch1_dropdown.grid(row=0, column=0, sticky='e')
-<<<<<<< HEAD
-        self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=90)
-        self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=120)
-        self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=40)
-        #filter_button.grid(row=0, column=4)
 
-    @classmethod
-    def returnfilters(cls):
-        instance = FilterFrame(parent=None)
-        return [instance.branch1_dropdown.get(), instance.branch3_dropdown.get(), instance.branch4_dropdown.get()]
+        manufacture_frame.grid(row=0, column=0)
+        width_frame.grid(row=0, column=1)
+        id_frame.grid(row=0, column=2)
+
+        # Label for the dropbox for finding keywords
+        filter_label_manufacture = tk.Label(manufacture_frame, text="Manufacture", font=("Helvetica", 12))
+        filter_label_manufacture.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        filter_label_widthsize = tk.Label(width_frame, text="Width Size", font=("Helvetica", 12))
+        filter_label_widthsize.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        filter_label_IDNum = tk.Label(id_frame, text="ID #", font=("Helvetica", 12))
+        filter_label_IDNum.pack(side="left", anchor=tk.W)  # Use 'tk.W' instead of 'tkinter.W'
+        choices_manufacture = ['', 'Shanghai', 'Fujikura', 'SuperPower']
+        self.branch1_dropdown = DropDown(parent = manufacture_frame, column = "Manufacturer", selections =choices_manufacture, width = 11)
+
+        self.branch1_dropdown.pack(anchor=tk.W, padx=0)
+        choices_OpCom = ['', '<', '>', '=', '\u2265', '\u2264']
+        self.branch2_dropdown = DropDown(parent = width_frame, column = None, selections = choices_OpCom, width = 1)
+        self.branch2_dropdown.pack(side="left", anchor=tk.W)
+
+        self.branch3_dropdown = Entry(parent = width_frame, column = "Size", width = 3)
+        self.branch3_dropdown.pack(side="left", anchor=tk.E)
+
+        self.branch4_dropdown = Entry(parent = id_frame, column = "Identification", width = 10)
+        self.branch4_dropdown.pack(side="left", anchor=tk.W)
+
+        # Button Widget
+        filter_button = ttk.Button(self, text='Filter', command=lambda: self.filter())
+        filter_button.grid(row=0, column=3)
 
 
-class tableFrame(tk.Frame):
-    def __init__(self, parent, width, height, dataframe):
-        super().__init__(parent)
-        self.configure(width = width, height = height)
-        self.pack_propagate(False)
-        self.pack(anchor=tk.W, expand=True, fill="both")
-        TreeView(self,dataframe = pd.read_csv(dataframe))
-
-class TreeView(ttk.Treeview):
-    def __init__(self, parent, dataframe):
-        super().__init__(parent)
-        self.dataframe = pd.DataFrame(dataframe)
-        self.configure(columns = tuple(dataframe.columns), show = "headings")
-        for column in tuple(dataframe.columns):
-            self.heading(column, text=column)
-            self.column(column, anchor=tk.CENTER)
-        for rows in dataframe.itertuples(index=False, name=None):
-            self.insert(parent='', index=tk.END, values=tuple(rows))
-        self.pack(anchor=tk.W, fill="both", expand=True)
-=======
-        self.branch2_dropdown.grid(row=0, column=1, sticky='e', padx=130)
-        self.branch3_dropdown.grid(row=0, column=1, sticky='e', padx=160)
-        self.branch4_dropdown.grid(row=0, column=2, sticky='w', padx=55)
-        filter_button.grid(row=0, column=4)
->>>>>>> dc25e8b1041f98431ea850c885bc35fb1e38ac8b
 
     def refresh(self, table):
         for row in table.get_children():
@@ -136,19 +103,39 @@ class TreeView(ttk.Treeview):
     def filter(self):
         newdataframe = self.dataframe
         columns = self.returnfilters()
-        print(columns)
-        for index, i in enumerate(columns):
-            if i != '':
+        dictionary = {'<': '<', '>' : '>', '=' : "==", '\u2265' : '>=', '\u2264' : '<='}
+        flag = False
+        print(columns[0].get(), columns[1].get(),columns[2].get(),columns[3].get())
+        for index, entry in enumerate(columns):
+            if entry.get() != '':
                 try:
-                    newdataframe = newdataframe.where(newdataframe[self.dataframe.columns[index]] == i)
-                    newdataframe = newdataframe.dropna()
+                    if entry.get() in  dictionary.keys() and columns[2].get() != '':
+                        print(dictionary[entry.get()])
+                        newdataframe = newdataframe.query(f"{columns[2].column} {dictionary[entry.get()]} {columns[2].get()}")
+                        flag = True
+                    elif flag is True:
+                        flag = False
+                        continue
+                    else:
+                        newdataframe = newdataframe.where(newdataframe[entry.column] == entry.get())
+                        newdataframe = newdataframe.dropna()
                 except KeyError:
-                    print("No data found index: " + str(index) + ", filter: " + i)
+                    print("invalid key: " + ", filter: " + entry.get())
         self.refresh(self.table)
         for rows in newdataframe.itertuples(index=False):
             self.table.insert(parent='', index=tk.END, values=tuple(rows))
     def returnfilters(self):
-        return [self.branch1_dropdown.get(), self.branch3_dropdown.get(), self.branch4_dropdown.get()]
+        return [self.branch1_dropdown,self.branch2_dropdown, self.branch3_dropdown, self.branch4_dropdown]
+
+class DropDown(ttk.Combobox):
+    def __init__(self,parent,column,width,selections):
+        super().__init__(master = parent,width = width,values = selections)
+        self.selections = selections
+        self.column = column
+class Entry(tk.Entry):
+    def __init__(self,parent,column, width):
+        super().__init__(master = parent, width = width)
+        self.column = column
 
 
 Application("800", "500")
