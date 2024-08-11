@@ -20,6 +20,7 @@ def getdir(dir):
 
 
 
+
 #2d array to csv file
 def ArrayToCSV(array):
     with open("inventory.csv", "w+", newline = '') as csv_file:
