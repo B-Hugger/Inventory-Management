@@ -41,9 +41,9 @@ class FilterFrame(tk.Frame):
         self.pack(side='top', fill='both')
         self.createDropdown()
         self.create_table()
-        #Dropdown Widgets
-
+        PopUpMenu(table = self.table, parent = parent)
     def createDropdown(self):
+        #Dropdown Widgets
         manufacture_frame = tk.Frame(master=self)
         width_frame = tk.Frame(master=self)
         id_frame = tk.Frame(master=self)
@@ -92,24 +92,27 @@ class FilterFrame(tk.Frame):
             table.delete(row)
 
     def create_table(self):
+        #Table creation
         table_frame = tk.Frame(master = self)
         table_frame.grid(row = 1, column = 0, pady=20, ipady=80,columnspan=5, sticky="swse" )
         self.table = ttk.Treeview(master= table_frame)
         self.table.configure(columns=tuple(self.dataframe.columns), show="headings")
         self.table.pack(fill=tk.BOTH, expand=True)
+        #Table item fill
         for column in tuple(self.dataframe.columns):
             self.table.heading(column, text=column)
             self.table.column(column, anchor=tk.CENTER)
         for rows in self.dataframe.itertuples(index=False, name=None):
             self.table.insert(parent='', index=tk.END, values=tuple(rows))
+        #Controls for table
         scrollbar = ttk.Scrollbar(self.table, orient=tk.VERTICAL, command = self.table.yview)
         self.table.configure(yscrollcommand=scrollbar.set)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        #Info display for table
         self.text = tk.StringVar()
         self.text.set("Total Items: " + str(len(self.table.get_children())))
         item_amount = tk.Label(master= table_frame, textvariable=self.text)
         item_amount.pack(side="left")
-
     def filter(self):
         newdataframe = self.dataframe
         columns = self.returnfilters()
@@ -154,6 +157,29 @@ class Entry(tk.Entry):
     def __init__(self, parent, column, width):
         super().__init__(master=parent, width=width)
         self.column = column
+#class PopupWindow()
+class PopUpMenu(tk.Menu):
+    def __init__(self, table, parent):
+        super().__init__(parent)
+        self.configure(tearoff=False)
+        self.add_command(label="Add", command=self.filler)
+        self.add_command(label="Delete", command=self.filler)
+        self.table = table
+        self.table.bind('<Button-3>',self.popup)
+    def filler(self):
+        print("pressed")
+    def popup(self, event):
+        # select row under mouse
+        iid = self.table.identify_row(event.y)
+        if iid:
+            # mouse pointer over item
+            self.table.selection_set(iid)
+            self.post(event.x_root, event.y_root)
+        else:
+            # mouse pointer not over item
+            # occurs when items do not fill frame
+            # no action required
+            pass
 
 
 Application("800", "500")
