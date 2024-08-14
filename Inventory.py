@@ -35,27 +35,34 @@ class FilterFrame(tk.Frame):
     def __init__(self, parent, dataframe):
         super().__init__(parent)
         # Frame
-        self.configure(width=300, height=400, borderwidth=10)
+        self.parent = parent
+        #self.configure(width=300, height=400, borderwidth=10)
+        #self.columnconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
+        self.columnconfigure(3, weight=1)
+        self.rowconfigure(1, weight=1)
         self.dataframe = pd.read_csv(dataframe)
         self.pack_propagate(False)
-        self.pack(side='top', fill='both')
+        self.pack( fill='both', expand = True)
         self.createDropdown()
         self.create_table()
         PopUpMenu(table = self.table, parent = parent)
     def createDropdown(self):
         #Dropdown Widgets
-        manufacture_frame = tk.Frame(master=self)
+        manufacture_frame = tk.Frame(master= self)
         width_frame = tk.Frame(master=self)
         id_frame = tk.Frame(master=self)
 
         # Grid
         # Colums
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(2, weight=1)
-        self.columnconfigure(3, weight=1)
-        # Rows
-        self.rowconfigure(0, weight=1)
+        # self.columnconfigure(0, weight=1)
+        # self.columnconfigure(1, weight=1)
+        # self.columnconfigure(2, weight=1)
+        # self.columnconfigure(3, weight=1)
+        # # Rows
+        # self.rowconfigure(0, weight=3)
 
         manufacture_frame.grid(row=0, column=0)
         width_frame.grid(row=0, column=1)
@@ -94,7 +101,8 @@ class FilterFrame(tk.Frame):
     def create_table(self):
         #Table creation
         table_frame = tk.Frame(master = self)
-        table_frame.grid(row = 1, column = 0, pady=20, ipady=80,columnspan=5, sticky="swse" )
+
+        table_frame.grid(row = 1, column = 0, pady=20, ipady=80,columnspan=5,rowspan = 3, sticky="nsew" )
         self.table = ttk.Treeview(master= table_frame)
         self.table.configure(columns=tuple(self.dataframe.columns), show="headings")
         self.table.pack(fill=tk.BOTH, expand=True)
