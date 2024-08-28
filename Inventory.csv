@@ -1,101 +1,101 @@
-Manufacturer,Size,Identification
-Fujikura,7,35053745
-Fujikura,3,54063056
-SuperPower,6,19883878
-SuperPower,5,51472143
-Fujikura,1,89684463
-Shanghai,4,35563670
-Shanghai,4,41677993
-SuperPower,7,29299154
-SuperPower,8,23301811
-SuperPower,4,12354258
-SuperPower,1,22397139
-SuperPower,2,59984650
-Fujikura,1,92991488
-SuperPower,6,73681273
-SuperPower,8,93696780
-Shanghai,8,85099812
-Fujikura,5,44614530
-SuperPower,5,52442905
-SuperPower,7,77918112
-Shanghai,2,67975098
-SuperPower,8,59495448
-Fujikura,7,16882648
-Shanghai,8,58703344
-Fujikura,2,62245478
-Shanghai,1,75388761
-Fujikura,6,30124015
-Fujikura,6,34069440
-SuperPower,4,50529434
-Fujikura,5,64104781
-Shanghai,3,35389523
-Shanghai,1,80290356
-Fujikura,1,80365484
-Shanghai,4,23602707
-SuperPower,1,59337892
-Fujikura,4,60671887
-SuperPower,2,63043702
-Fujikura,1,36603065
-Shanghai,3,99037278
-Shanghai,3,28759592
-SuperPower,4,37241286
-Shanghai,5,87760390
-Fujikura,1,30273995
-Fujikura,7,56102805
-Fujikura,1,59312695
-SuperPower,2,38343962
-Fujikura,2,58532600
-Shanghai,3,65479359
-Fujikura,2,38781111
-Fujikura,1,83686722
-SuperPower,2,66455130
-Fujikura,2,27929880
-Shanghai,4,32582968
-Fujikura,8,72876634
-SuperPower,7,67868137
-Shanghai,7,95016871
-SuperPower,4,31332376
-SuperPower,5,73705644
-SuperPower,1,39755356
-Fujikura,1,12119603
-Shanghai,2,30518197
-Shanghai,6,73364851
-Fujikura,2,64832726
-Shanghai,1,28248306
-SuperPower,8,14078067
-SuperPower,8,45659544
-Shanghai,4,65973138
-Shanghai,8,89872728
-Shanghai,2,43538471
-Fujikura,6,19789138
-SuperPower,2,36474607
-Shanghai,1,54737774
-SuperPower,8,44349704
-Shanghai,8,55934400
-Shanghai,6,90021621
-Fujikura,4,64994100
-Shanghai,8,13846500
-SuperPower,4,46775137
-Shanghai,3,14850325
-SuperPower,6,80185980
-Fujikura,1,30025707
-Fujikura,1,37774105
-Fujikura,7,68066984
-SuperPower,1,93659301
-Fujikura,5,10406550
-SuperPower,4,51987592
-Shanghai,1,58929457
-Fujikura,8,58984674
-Fujikura,1,74639879
-Fujikura,6,72454794
-Shanghai,3,47448137
-Fujikura,6,69522313
-SuperPower,2,69358107
-Fujikura,3,39978584
-Fujikura,3,98802439
-SuperPower,7,33324817
-Shanghai,5,63474615
-Fujikura,2,69847708
-Fujikura,4,13126108
-SuperPower,4,64504175
-SuperPower,7,40753827
+ItemID,ItemName,Category,Quantity,PricePerUnit,RestockLevel,Supplier
+101,Gadget N,Gadgets,69,2.09,35,Supplier X
+102,Gadget N,Tools,48,1.88,31,Supplier X
+103,Widget X,Tools,111,8.19,33,Supplier Z
+104,Widget M,Tools,22,3.93,9,Supplier Z
+105,Tool P,Gadgets,149,1.74,32,Supplier W
+106,Gadget Y,Tools,83,5.08,38,Supplier Z
+107,Tool Z,Gadgets,120,3.43,10,Supplier Z
+108,Gadget D,Widgets,152,9.85,44,Supplier Z
+109,Tool E,Widgets,25,3.08,43,Supplier Y
+110,Tool F,Widgets,63,7.24,30,Supplier Y
+111,Tool E,Tools,92,5.07,28,Supplier Y
+112,Widget M,Gadgets,55,3.19,11,Supplier Z
+113,Gadget Y,Tools,108,5.44,43,Supplier X
+114,Tool Z,Gadgets,69,8.76,10,Supplier X
+115,Widget X,Tools,146,7.42,28,Supplier Y
+116,Tool F,Gadgets,88,3.79,16,Supplier Y
+117,Gadget D,Gadgets,195,3.42,36,Supplier W
+118,Gadget N,Tools,118,7.68,48,Supplier X
+119,Widget X,Gadgets,151,8.01,31,Supplier Z
+120,Tool E,Gadgets,119,9.09,46,Supplier Y
+121,Tool E,Tools,37,4.66,21,Supplier Y
+122,Tool E,Gadgets,29,1.38,49,Supplier X
+123,Widget B,Gadgets,92,3.19,28,Supplier W
+124,Widget B,Gadgets,33,5.1,14,Supplier W
+125,Widget B,Tools,97,9.48,50,Supplier W
+126,Widget X,Widgets,155,2.36,30,Supplier W
+127,Widget M,Widgets,119,8.33,16,Supplier X
+128,Tool E,Tools,120,3.67,46,Supplier W
+129,Widget M,Gadgets,30,2.07,11,Supplier W
+130,Widget X,Tools,107,8.54,21,Supplier Y
+131,Tool Z,Gadgets,69,1.28,17,Supplier X
+132,Tool E,Widgets,110,3.1,40,Supplier Z
+133,Widget A,Tools,76,5.14,30,Supplier X
+134,Widget M,Gadgets,156,6.7,41,Supplier X
+135,Gadget C,Gadgets,15,6.41,28,Supplier W
+136,Widget M,Widgets,91,4.43,25,Supplier W
+137,Gadget Y,Widgets,158,1.56,41,Supplier Z
+138,Gadget N,Gadgets,183,1.54,38,Supplier X
+139,Gadget D,Tools,136,8.23,22,Supplier Z
+140,Gadget N,Gadgets,40,3.37,5,Supplier Z
+141,Gadget D,Gadgets,132,8.94,24,Supplier Z
+142,Tool F,Widgets,40,5.64,49,Supplier Z
+143,Gadget N,Gadgets,40,5.63,37,Supplier Z
+144,Tool Z,Widgets,71,2.52,49,Supplier Y
+145,Gadget Y,Tools,74,2.21,32,Supplier Z
+146,Tool E,Widgets,33,7.15,17,Supplier W
+147,Widget M,Gadgets,50,4.74,34,Supplier Z
+148,Gadget C,Gadgets,141,7.87,23,Supplier W
+149,Gadget N,Widgets,93,7.68,15,Supplier W
+150,Tool P,Gadgets,142,5.5,37,Supplier X
+151,Widget B,Widgets,160,8.06,21,Supplier Y
+152,Tool Z,Gadgets,15,5.87,23,Supplier Z
+153,Tool E,Tools,107,7.47,11,Supplier Z
+154,Tool F,Gadgets,74,3.27,41,Supplier W
+155,Widget B,Gadgets,46,4.91,25,Supplier W
+156,Gadget Y,Widgets,12,1.15,22,Supplier W
+157,Widget A,Gadgets,107,1.37,49,Supplier Z
+158,Tool F,Tools,129,4.73,9,Supplier W
+159,Tool F,Tools,164,7.84,24,Supplier W
+160,Tool P,Tools,192,2.05,15,Supplier W
+161,Widget A,Tools,159,7.65,33,Supplier X
+162,Widget M,Widgets,114,6.02,46,Supplier Z
+163,Widget B,Gadgets,44,9.44,17,Supplier Y
+164,Tool E,Tools,38,4.9,14,Supplier Z
+165,Widget M,Tools,191,3.28,50,Supplier Z
+166,Tool F,Widgets,58,4.47,21,Supplier Z
+167,Tool P,Tools,7,7.54,39,Supplier Z
+168,Tool E,Gadgets,46,8.07,29,Supplier Y
+169,Gadget Y,Tools,126,5.86,40,Supplier W
+170,Widget B,Gadgets,111,3.7,18,Supplier Z
+171,Gadget Y,Gadgets,130,8.05,8,Supplier Y
+172,Tool E,Tools,41,7.71,16,Supplier X
+173,Tool F,Gadgets,98,8.19,17,Supplier Y
+174,Widget B,Widgets,20,5.68,26,Supplier W
+175,Widget A,Widgets,140,5.85,7,Supplier W
+176,Gadget Y,Gadgets,184,8.32,6,Supplier X
+177,Gadget D,Tools,195,6.2,32,Supplier W
+178,Gadget C,Widgets,59,8.22,20,Supplier W
+179,Tool P,Widgets,10,3.53,43,Supplier Z
+180,Gadget Y,Widgets,37,7.59,42,Supplier Z
+181,Gadget N,Tools,114,7.82,32,Supplier W
+182,Widget M,Tools,58,2.03,36,Supplier Z
+183,Tool Z,Widgets,156,3.33,39,Supplier X
+184,Widget X,Tools,48,3.75,20,Supplier Z
+185,Tool F,Gadgets,53,7.36,50,Supplier X
+186,Tool E,Widgets,108,9.7,39,Supplier X
+187,Tool P,Gadgets,25,6.73,34,Supplier X
+188,Tool E,Gadgets,83,4.61,44,Supplier Z
+189,Widget X,Tools,156,6.49,43,Supplier Z
+190,Widget A,Tools,95,3.78,15,Supplier W
+191,Widget A,Widgets,185,3.62,23,Supplier X
+192,Gadget Y,Widgets,29,1.11,35,Supplier W
+193,Gadget Y,Gadgets,72,6.22,50,Supplier Y
+194,Gadget N,Widgets,124,2.81,23,Supplier X
+195,Gadget D,Gadgets,132,5.32,16,Supplier W
+196,Widget M,Widgets,70,1.75,33,Supplier X
+197,Widget A,Widgets,193,6.86,18,Supplier Z
+198,Gadget D,Widgets,155,1.55,30,Supplier W
+199,Widget B,Widgets,187,6.34,35,Supplier Z
+200,Widget X,Gadgets,85,2.6,33,Supplier Y
