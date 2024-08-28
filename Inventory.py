@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 import pandas as pd
 import customtkinter as ctk
-import ctypes as ct
 class Application(ctk.CTk):
 
     def __init__(self, width, height):
@@ -11,6 +10,7 @@ class Application(ctk.CTk):
         self.geometry(f'{width}x{height}')
         self.configure(fg_color= "#2b2d30")
         self.resizable(False, False)
+        self.iconbitmap('ICON.ico')
         #dark_title_bar(self)
         #Menu(self)
         FilterFrame(self, "Inventory.csv")
