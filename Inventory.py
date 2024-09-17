@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
 import pandas as pd
 import customtkinter as ctk
 class Application(ctk.CTk):
@@ -11,30 +12,20 @@ class Application(ctk.CTk):
         self.configure(fg_color= "#2b2d30")
         self.resizable(False, False)
         self.iconbitmap('ICON.ico')
-        #dark_title_bar(self)
-        #Menu(self)
-        FilterFrame(self, "Inventory.csv")
+        Menu(self)
+        self.dataframe = "C:/Users/bhugg/Downloads/I-95-Collapse-Raw.csv"
+        self.filter = FilterFrame(self, self.dataframe)
         self.mainloop()
-# def dark_title_bar(window):
-#     window.update()
-#     DWMWA_USE_IMMERSIVE_DARK_MODE = 20
-#     set_window_attribute = ct.windll.dwmapi.DwmSetWindowAttribute
-#     get_parent = ct.windll.user32.GetParent
-#     hwnd = get_parent(window.winfo_id())
-#     rendering_policy = DWMWA_USE_IMMERSIVE_DARK_MODE
-#     value = 2
-#     value = ct.c_int(value)
-#     set_window_attribute(hwnd, rendering_policy, ct.byref(value),
-#                          ct.sizeof(value))
 
 class Menu(tk.Menu):
+
     def __init__(self, parent):
         super().__init__(parent)
         settings_menu = tk.Menu(self, tearoff=False)  # contains resolution, layout, change database,etc
-        settings_menu.add_command(label="Resolution")
-        settings_menu.add_command(label="Layout")
-        settings_menu.add_command(label="Change Database")
         self.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Resolution")
+        settings_menu.add_command(label="Change filters")
+        settings_menu.add_command(label="Change Database", command = lambda:self.changeDatabase(parent = parent))
         #Help Menu
         help_menu = tk.Menu(self, tearoff=False) #contains controls documentation and general documentation for application
         self.add_cascade(label="Help", menu=help_menu)
@@ -43,7 +34,15 @@ class Menu(tk.Menu):
         help_menu.add_command(label="Mangament System")
         parent.configure(menu=self)
 
-
+    def changeDatabase(self,parent):
+        file_path = tk.filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
+        parent.dataframe = file_path
+        if file_path:
+            parent.filter.destroy()
+            parent.filter = FilterFrame(parent, parent.dataframe)
+            parent.filter.pack(fill=tk.BOTH, expand=True)
+        else:
+            pass
 class FilterFrame(ctk.CTkFrame):
     def __init__(self, parent, dataframe):
         super().__init__(parent)
@@ -66,16 +65,17 @@ class FilterFrame(ctk.CTkFrame):
     def createDropdown(self):
         #create individual frames
         framelist = []
-        for index in range(6):
+        for index in range(self.dataframe.shape[1]):
             frame = ctk.CTkFrame(master = self)
             framelist.append(frame)
             if index < 3:
                 framelist[index].grid(row = 0, column = index,pady = 15, sticky = "nesw")
                 framelist[index].configure(fg_color = "#1e1f22")
-            else:
+            elif index >= 3 and index < 6:
                 framelist[index].grid(row = 1, column = index - 3, sticky = "nesw")
                 framelist[index].configure(fg_color = "#1e1f22")
-
+            else:
+                break
         #create entries with labels
         self.entry_dict = {}
         for index, label in enumerate(self.dataframe.columns):
