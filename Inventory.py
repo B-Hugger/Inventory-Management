@@ -23,8 +23,7 @@ class Menu(tk.Menu):
         super().__init__(parent)
         settings_menu = tk.Menu(self, tearoff=False)  # contains resolution, layout, change database,etc
         self.add_cascade(label="Settings", menu=settings_menu)
-        settings_menu.add_command(label="Resolution")
-        settings_menu.add_command(label="Change filters")
+        settings_menu.add_command(label="Change filters", command = lambda:self.changeFilters(parent = parent))
         settings_menu.add_command(label="Change Database", command = lambda:self.changeDatabase(parent = parent))
         #Help Menu
         help_menu = tk.Menu(self, tearoff=False) #contains controls documentation and general documentation for application
@@ -43,6 +42,42 @@ class Menu(tk.Menu):
             parent.filter.pack(fill=tk.BOTH, expand=True)
         else:
             pass
+    def changeFilters(self,parent):
+
+        if not any(isinstance(x, tk.Toplevel) for x in parent.filter.winfo_children()):
+                max_selectable = 6
+                currently_selected = tk.IntVar()
+                filter_window = ctk.CTkToplevel(parent.filter, fg_color= "#1e1f22")
+                filter_window.title("Filter configuration")
+                filter_window.geometry("300x400")
+                filter_window.resizable(False, False)
+                filter_window.lift()
+                def on_checkbutton_click():
+                    if max_selectable >= currently_selected.get():
+                        for cb in checkbuttons:
+                            if not cb.get():
+                                cb.configure(state=tk.DISABLED)
+                                print("Works")
+                            else:
+                                for cb in checkbuttons:
+                                    cb.configure(state=tk.NORMAL)
+                                    print("doesnt work")
+                features_frame = ctk.CTkScrollableFrame(master = filter_window, fg_color= "#1e1f22")
+                features_frame.pack(side="left", expand=True, fill="both")
+                label = ctk.CTkLabel(master=features_frame, text="Filters: ", font=('Helvetica', 16), text_color="#afb1b7")
+                label.grid(row=0, column=0, pady=10, sticky=tk.W)
+                checkbuttons = []
+                for index, columns in enumerate(parent.filter.dataframe.columns):
+                    label = ctk.CTkLabel(master=features_frame, text=columns + ":", font=('Helvetica', 14), text_color="#afb1b7")
+                    var = tk.BooleanVar()
+                    checkbutton = ctk.CTkCheckBox(master = features_frame,variable = var, text = columns, fg_color= "#1e1f22", text_color= "#afb1b7")
+                    checkbutton.configure(command = lambda var = checkbutton.get(): currently_selected.set(currently_selected.get() + (1 if var.get() else -1)))
+                    checkbutton.configure(command = on_checkbutton_click)
+                    label.grid(row = index + 1, column = 0, pady = 5, sticky = tk.W)
+                    checkbutton.grid(row = index + 1, column = 0, pady = 5, sticky = tk.W)
+                    checkbuttons.append(checkbutton)
+
+
 class FilterFrame(ctk.CTkFrame):
     def __init__(self, parent, dataframe):
         super().__init__(parent)
@@ -147,10 +182,15 @@ class FilterFrame(ctk.CTkFrame):
     def filter(self):
         newdataframe = self.dataframe
         columns = self.returnfilters()
+        operations = ["==",">",">=","<","<="]
         for index, entry in enumerate(columns):
             if entry.get() != '':
                 if newdataframe[entry.column].dtype.kind in 'iufc':
-                    newdataframe = newdataframe.query(f"{entry.column} {entry.get()}")
+                    if any(operation in entry.get() for operation in operations):
+                        newdataframe = newdataframe.query(f"{entry.column} {entry.get()}")
+                    else:
+                        newdataframe = newdataframe.query(f"{entry.column} == {entry.get()}")
+
                 else:
                     newdataframe = newdataframe.query(f"{entry.column} == '{entry.get()}'")
 
@@ -213,11 +253,12 @@ class PopUpMenu(tk.Menu):
                 add_window.title("Add Data")
                 add_window.geometry("300x400")
                 add_window.resizable(False, False)
+                add_window.lift()
                 features_frame = ctk.CTkScrollableFrame(master = add_window, fg_color= "#1e1f22")
 
                 features_frame.pack(side = "left", expand = True, fill = "both")
                 label = ctk.CTkLabel(master = features_frame, text="Information: ",font = ('Helvetica', 16),text_color= "#afb1b7" )
-                label.grid(row = 0, column = 0, pady = 10)
+                label.grid(row = 0, column = 0, pady = 10, sticky = tk.W)
                 self.entry_label = {}
                 for index, features in enumerate(self.filterframe.dataframe.columns):
                     label = ctk.CTkLabel(master = features_frame, text=features +":", font = ('Helvetica', 14), text_color= "#afb1b7")
